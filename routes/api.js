@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose"); // Need to require mongoose
+mongoose.set("useFindAndModify", false); // Gets rid of deprication error on console.log when using findByIdandUpdate()
 
 module.exports = function (app) {
   let uri = process.env.PERSONAL_LIBRARY_MONGO_URI;
@@ -84,11 +85,11 @@ module.exports = function (app) {
 
       Book.findByIdAndUpdate(
         bookId,
-        { $push: { comments: [comment] } },
+        { $push: { comments: [comment] }, $inc: { commentcount: 1 } },
         (error, updatedBook) => {
           if (error) return res.json("missing required field comment");
           if (!error && updatedBook) {
-            console.log(updatedBook, "<= updatedBook");
+            res.json(updatedBook);
           }
         }
       );

@@ -84,6 +84,9 @@ $(document).ready(function () {
       success: function (data) {
         comments.unshift(newComment); //adds new comment to top of list
         $("#detailComments").html(comments.join(""));
+        {
+          window.location.reload(true);
+        }
       },
     });
   });
