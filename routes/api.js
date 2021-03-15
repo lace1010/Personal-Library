@@ -86,6 +86,7 @@ module.exports = function (app) {
       Book.findByIdAndUpdate(
         bookId,
         { $push: { comments: [comment] }, $inc: { commentcount: 1 } },
+        { new: true }, // {new, true} returns the updated version and not the original. (Default is false)
         (error, updatedBook) => {
           if (error) return res.json("missing required field comment");
           if (!error && updatedBook) {
