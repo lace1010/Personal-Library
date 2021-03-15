@@ -71,7 +71,7 @@ module.exports = function (app) {
     .get((req, res) => {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
-        if (error) return res.json("no book exists");
+        if (error) return res.send("no book exists");
         if (!error && foundBook) {
           res.json(foundBook);
         }
