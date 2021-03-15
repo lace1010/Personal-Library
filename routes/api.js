@@ -71,13 +71,14 @@ module.exports = function (app) {
     .get((req, res) => {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
-        if (error && !foundBook) {
+        if (error) {
           console.log(error, "<= error message");
           res.send("no book exists");
           res.status(200);
         }
         if (!error && foundBook) {
           res.json(foundBook);
+          res.status(200);
         }
       });
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
@@ -92,11 +93,13 @@ module.exports = function (app) {
         { $push: { comments: comment }, $inc: { commentcount: 1 } },
         { new: true }, // {new, true} returns the updated version and not the original. (Default is false)
         (error, updatedBook) => {
-          if (!updatedBook) {
-            return res.json("missing required field comment");
+          if (error) {
+            res.json("missing required field comment");
+            res.status(200);
           }
           if (!error && updatedBook) {
             res.json(updatedBook);
+            res.status(200);
           }
         }
       );
@@ -106,8 +109,14 @@ module.exports = function (app) {
     .delete((req, res) => {
       let bookId = req.params.id;
       Book.findByIdAndDelete(bookId, (error, deletedBook) => {
-        if (error) return res.json("no book exists");
-        if (!error & deletedBook) return res.json("delete successful");
+        if (error) {
+          res.json("no book exists");
+          res.status(200);
+        }
+        if (!error & deletedBook) {
+          res.json("delete successful");
+          res.status(200);
+        }
       });
       //if successful response will be 'delete successful'
     });
