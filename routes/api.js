@@ -18,7 +18,7 @@ module.exports = function (app) {
   const bookSchema = new Schema({
     title: { type: String, required: true },
     commentcount: { type: Number, required: true },
-    comments: { type: Array, required: true },
+    comments: { type: [String], required: true },
   });
   const Book = mongoose.model("Book", bookSchema);
 
@@ -84,7 +84,7 @@ module.exports = function (app) {
 
       Book.findByIdAndUpdate(
         bookId,
-        { $set: { comments: [comment] } },
+        { $push: { comments: [comment] } },
         (error, updatedBook) => {
           if (error) return res.json("missing required field comment");
           if (!error && updatedBook) {
