@@ -71,7 +71,11 @@ module.exports = function (app) {
     .get((req, res) => {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
-        if (error) return res.send("no book exists");
+        if (error && !foundBook) {
+          console.log(error, "<= error message");
+          res.send("no book exists");
+          res.status(200);
+        }
         if (!error && foundBook) {
           res.json(foundBook);
         }
@@ -88,7 +92,9 @@ module.exports = function (app) {
         { $push: { comments: comment }, $inc: { commentcount: 1 } },
         { new: true }, // {new, true} returns the updated version and not the original. (Default is false)
         (error, updatedBook) => {
-          if (error) return res.json("missing required field comment");
+          if (!updatedBook) {
+            return res.json("missing required field comment");
+          }
           if (!error && updatedBook) {
             res.json(updatedBook);
           }
