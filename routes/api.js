@@ -79,11 +79,11 @@ module.exports = function (app) {
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
     })
 
-    .post(async (req, res) => {
+    .post((req, res) => {
       let bookId = req.params.id;
       let comment = req.body.comment;
 
-      await Book.findByIdAndUpdate(
+      Book.findByIdAndUpdate(
         bookId,
         { $push: { comments: [comment] }, $inc: { commentcount: 1 } },
         (error, updatedBook) => {
@@ -96,9 +96,9 @@ module.exports = function (app) {
       //json res format same as .get
     })
 
-    .delete(async (req, res) => {
+    .delete((req, res) => {
       let bookId = req.params.id;
-      await Book.findByIdAndDelete(bookId, (error, deletedBook) => {
+      Book.findByIdAndDelete(bookId, (error, deletedBook) => {
         if (error) return res.json("no book exists");
         if (!error & deletedBook) return res.json("delete successful");
       });
