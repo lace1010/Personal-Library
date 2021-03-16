@@ -63,7 +63,6 @@ module.exports = function (app) {
           return res.json("complete delete successful");
         }
       });
-      // if successful response will be 'complete delete successful'
     });
 
   app
@@ -81,7 +80,7 @@ module.exports = function (app) {
     .post((req, res) => {
       let bookId = req.params.id;
       let comment = req.body.comment;
-      if (comment == "") return res.json("missing required field comment");
+      if (!comment) return res.json("missing required field comment");
 
       Book.findByIdAndUpdate(
         bookId,
@@ -94,7 +93,6 @@ module.exports = function (app) {
           else return res.json(updatedBook);
         }
       );
-      //json res format same as .get
     })
 
     .delete((req, res) => {
