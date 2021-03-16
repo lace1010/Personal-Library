@@ -63,7 +63,7 @@ module.exports = function (app) {
           return res.json("complete delete successful");
         }
       });
-      //if successful response will be 'complete delete successful'
+      // if successful response will be 'complete delete successful'
     });
 
   app
@@ -72,13 +72,16 @@ module.exports = function (app) {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
         if (error) {
-          console.log(error, "<= error message");
-          res.send("no book exists");
-          res.status(200);
-        }
-        if (!error && foundBook) {
-          res.json(foundBook);
-          res.status(200);
+          console.log(error.message);
+          if (error.message.includes("Cast to ObjectId failed")) {
+            return res.send("no book exists");
+          }
+        } else {
+          if (!foundBook) {
+            return res.send("no book exists");
+          } else {
+            res.json(foundBook);
+          }
         }
       });
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
@@ -95,11 +98,9 @@ module.exports = function (app) {
         (error, updatedBook) => {
           if (error) {
             res.json("missing required field comment");
-            res.status(200);
           }
           if (!error && updatedBook) {
             res.json(updatedBook);
-            res.status(200);
           }
         }
       );
@@ -108,14 +109,12 @@ module.exports = function (app) {
 
     .delete((req, res) => {
       let bookId = req.params.id;
-      Book.findByIdAndDelete(bookId, (error, deletedBook) => {
+      Book.findByIdAndRemove(bookId, (error, deletedBook) => {
         if (error) {
           res.json("no book exists");
-          res.status(200);
         }
         if (!error & deletedBook) {
           res.json("delete successful");
-          res.status(200);
         }
       });
       //if successful response will be 'delete successful'
