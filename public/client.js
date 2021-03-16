@@ -65,11 +65,6 @@ $(document).ready(function () {
         $("#detailComments").html(
           '<p style="color: red;">' + data + "<p><p>Refresh the page</p>"
         );
-
-        // *** THIS AINT WORKING BC THIS FUNCTION IS NOT BEING CALLED ONE ONCE DELETE BUTTON IS PUSHED
-        // {
-        //   window.location.reload(true);
-        // }
       },
     });
   });
@@ -84,9 +79,6 @@ $(document).ready(function () {
       success: function (data) {
         comments.unshift(newComment); //adds new comment to top of list
         $("#detailComments").html(comments.join(""));
-        // {
-        //   window.location.reload(true);
-        // }
       },
     });
   });
