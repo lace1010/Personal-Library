@@ -107,11 +107,11 @@ module.exports = function (app) {
       let bookId = req.params.id;
       Book.findByIdAndRemove(bookId, (error, deletedBook) => {
         if (error) {
-          res.json("no book exists");
+          return res.json("no book exists");
         }
-        if (!error & deletedBook) {
-          res.json("delete successful");
-        }
+        if (!deletedBook) {
+          return res.json("no book exists");
+        } else return res.json("delete successful");
       });
       //if successful response will be 'delete successful'
     });
