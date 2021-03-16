@@ -81,6 +81,7 @@ module.exports = function (app) {
     .post((req, res) => {
       let bookId = req.params.id;
       let comment = req.body.comment;
+      if (comment == "") return res.json("missing required field comment");
 
       Book.findByIdAndUpdate(
         bookId,
@@ -90,7 +91,6 @@ module.exports = function (app) {
           if (error) return res.json("no book exists");
 
           if (!updatedBook) return res.json("no book exists");
-          if (comment == "") return res.json("missing required field comment");
           else return res.json(updatedBook);
         }
       );
