@@ -89,12 +89,14 @@ module.exports = function (app) {
         { $push: { comments: comment }, $inc: { commentcount: 1 } },
         { new: true }, // {new, true} returns the updated version and not the original. (Default is false)
         (error, updatedBook) => {
-          if (error) return res.json("no book exists");
-          else {
-            if (!updatedBook) return res.json("no book exists");
-            else if (updatedbook && commment == "") {
-              return res.json("no book exists");
-            } else return res.json(updatedBook);
+          if (error) {
+            console.log(error.message);
+            if (error.messge.includes("Cast to ObjectId failed")) {
+              res.json("missing required field comment");
+            }
+          } else {
+            if (!updatedBook) return res.json("missing required field comment");
+            else return res.json(updatedBook);
           }
         }
       );
