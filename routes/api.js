@@ -72,12 +72,10 @@ module.exports = function (app) {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
         if (error) return res.send("no book exists");
-        else {
-          if (!foundBook) return res.send("no book exists");
-          else return res.json(foundBook);
-        }
+
+        if (!foundBook) return res.send("no book exists");
+        else return res.json(foundBook);
       });
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
     })
 
     .post((req, res) => {
@@ -106,13 +104,10 @@ module.exports = function (app) {
     .delete((req, res) => {
       let bookId = req.params.id;
       Book.findByIdAndRemove(bookId, (error, deletedBook) => {
-        if (error) {
-          return res.json("no book exists");
-        }
-        if (!deletedBook) {
-          return res.json("no book exists");
-        } else return res.json("delete successful");
+        if (error) return res.json("no book exists");
+
+        if (!deletedBook) return res.json("no book exists");
+        else return res.json("delete successful");
       });
-      //if successful response will be 'delete successful'
     });
 };
