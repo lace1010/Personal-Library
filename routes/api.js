@@ -93,7 +93,7 @@ module.exports = function (app) {
           else {
             if (!updatedBook) return res.json("no book exists");
             else if (updatedbook && commment == "") {
-              return res.json("missing required field comment");
+              return res.json("no book exists");
             } else return res.json(updatedBook);
           }
         }
@@ -104,11 +104,12 @@ module.exports = function (app) {
     .delete((req, res) => {
       let bookId = req.params.id;
       Book.findByIdAndRemove(bookId, (error, deletedBook) => {
-        if (error) return res.json("no book exists");
-
-        if (!deletedBook) return res.json("no book exists");
-
-        return res.json("delete successful");
+        if (error) {
+          res.json("no book exists");
+        }
+        if (!error & deletedBook) {
+          res.json("delete successful");
+        }
       });
       //if successful response will be 'delete successful'
     });
