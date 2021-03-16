@@ -71,14 +71,10 @@ module.exports = function (app) {
     .get((req, res) => {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
-        if (error) {
-          return res.send("no book exists");
-        } else {
-          if (!foundBook) {
-            return res.send("no book exists");
-          } else {
-            res.json(foundBook);
-          }
+        if (error) return res.send("no book exists");
+        else {
+          if (!foundBook) return res.send("no book exists");
+          else return res.json(foundBook);
         }
       });
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
@@ -93,14 +89,12 @@ module.exports = function (app) {
         { $push: { comments: comment }, $inc: { commentcount: 1 } },
         { new: true }, // {new, true} returns the updated version and not the original. (Default is false)
         (error, updatedBook) => {
-          if (error) {
-            console.log(error.message);
-            if (error.messge.includes("Cast to ObjectId failed")) {
-              res.json("missing required field comment");
-            }
-          } else {
-            if (!updatedBook) return res.json("missing required field comment");
-            else return res.json(updatedBook);
+          if (error) return res.json("no book exists");
+          else {
+            if (!updatedBook) return res.json("no book exists");
+            else if (updatedbook && commment == "") {
+              return res.json("missing required field comment");
+            } else return res.json(updatedBook);
           }
         }
       );
@@ -112,9 +106,9 @@ module.exports = function (app) {
       Book.findByIdAndRemove(bookId, (error, deletedBook) => {
         if (error) {
           res.json("no book exists");
-        }
-        if (!error & deletedBook) {
-          res.json("delete successful");
+        } else {
+          if (!deletedBook) return res.json("no book exists");
+          else return res.json("delete successful");
         }
       });
       //if successful response will be 'delete successful'
