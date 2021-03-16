@@ -72,10 +72,7 @@ module.exports = function (app) {
       let bookId = req.params.id;
       Book.findById(bookId, (error, foundBook) => {
         if (error) {
-          console.log(error.message);
-          if (error.message.includes("Cast to ObjectId failed")) {
-            return res.send("no book exists");
-          }
+          return res.send("no book exists");
         } else {
           if (!foundBook) {
             return res.send("no book exists");
@@ -97,10 +94,13 @@ module.exports = function (app) {
         { new: true }, // {new, true} returns the updated version and not the original. (Default is false)
         (error, updatedBook) => {
           if (error) {
-            res.json("missing required field comment");
-          }
-          if (!error && updatedBook) {
-            res.json(updatedBook);
+            console.log(error.message);
+            if (error.messge.includes("Cast to ObjectId failed")) {
+              res.json("missing required field comment");
+            }
+          } else {
+            if (!updatedBook) return res.json("missing required field comment");
+            else return res.json(updatedBook);
           }
         }
       );
