@@ -4,6 +4,12 @@ $(document).ready(function () {
 
   $.getJSON("/api/books", function (data) {
     itemsRaw = data;
+    if (data.length > 0) {
+      // Add this class if ther is a book so when there is not a book the other div can
+      // be in center and not be effected by margins in this class
+      $("#display").addClass("displayWithBooks");
+    }
+
     $.each(data, function (i, val) {
       items.push(
         '<li class="bookItem" id="' +
