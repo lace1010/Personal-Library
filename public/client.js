@@ -117,4 +117,12 @@ $(document).ready(function () {
       },
     });
   });
+
+  $("#firstDelete").click(() => {
+    $("#secondDelete").toggle("medium");
+  });
+
+  $("#secondDelete").click(() => {
+    $("#deleteAllBooks").toggle("medium");
+  });
 });

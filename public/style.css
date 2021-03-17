@@ -2,9 +2,9 @@
 
 :root {
   --main-color-dark: #09203f;
- --main-color-light: #537895;
- --text-color: #B8B8B8;
- --delete-color: rgb(141, 0, 0);
+  --main-color-light: #537895;
+  --text-color: #b8b8b8;
+  --delete-color: rgb(141, 0, 0);
 }
 
 * {
@@ -29,6 +29,10 @@ body {
   font-size: 2rem;
 }
 
+button:hover {
+  filter: brightness(85%);
+}
+
 header {
   text-align: center;
   margin-top: 5rem;
@@ -50,7 +54,7 @@ header {
   background-color: transparent;
   color: var(--text-color);
   border: 2px solid var(--text-color);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
   margin-right: 1rem;
   font-size: 1.8rem;
@@ -60,7 +64,7 @@ header {
   background-color: var(--main-color-dark);
   color: var(--text-color);
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
   font-size: 1.8rem;
 }
@@ -73,7 +77,7 @@ header {
 
 .displayWithBooks {
   max-width: 47.5%;
-  display:flex;
+  display: flex;
   align-items: center;
   margin-right: 4rem;
 }
@@ -82,21 +86,21 @@ header {
   background-color: var(--text-color);
   color: var(--main-color-dark);
   list-style: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   margin-bottom: 1rem;
-  padding: .5rem .5rem .5rem 1.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   width: 100%;
 }
 
 #bookDetail {
   width: 47.5%;
-  display:flex;
+  display: flex;
   align-items: center;
   flex-direction: column;
   background-color: var(--text-color);
   color: var(--main-color-dark);
-  border-radius: .5rem;
-  padding: 1.5rem 4rem .5rem 4rem;
+  border-radius: 0.5rem;
+  padding: 1.5rem 4rem 0.5rem 4rem;
 }
 
 #bookTitle {
@@ -104,6 +108,7 @@ header {
 }
 
 #idUnderTitle {
+  color: rgb(91, 115, 124);
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
 }
@@ -112,7 +117,7 @@ header {
   color: var(--main-color-dark);
   width: 30rem;
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
 }
 
@@ -120,9 +125,9 @@ header {
   background-color: var(--main-color-dark);
   color: var(--text-color);
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   font-size: 1.5rem;
-  padding: .5rem;
+  padding: 0.5rem;
   width: 48%;
   margin-right: 2%;
 }
@@ -131,9 +136,9 @@ header {
   background-color: var(--delete-color);
   color: var(--text-color);
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   font-size: 1.5rem;
-  padding: .5rem;
+  padding: 0.5rem;
   width: 48%;
 }
 
@@ -165,22 +170,50 @@ header {
   }
 
   #bookDetail {
-    width:40%;
+    width: 40%;
   }
 }
 .commentLi {
-  background-color: #B8B8B8;
+  background-color: #b8b8b8;
   color: var(--main-color-dark);
   list-style: none;
 }
 
-#deleteAllBooks {
-  display: block;
-  margin: 2rem auto 2rem auto;
+#deleteAllContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0 2rem 0;
+}
+
+.hide {
+  display: none;
+}
+
+#firstDelete {
   background-color: var(--delete-color);
   color: var(--text-color);
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+}
+
+#secondDelete {
+  background-color: rgb(0, 102, 9);
+  color: var(--text-color);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+  margin: 0 1rem 0 1rem;
+}
+
+#deleteAllBooks {
+  background-color: var(--delete-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 0.5rem;
   padding: 1rem;
   font-size: 1.8rem;
 }
