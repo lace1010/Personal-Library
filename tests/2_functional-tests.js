@@ -131,16 +131,16 @@ suite("Functional Tests", function () {
           });
       });
 
-      // test("Test DELETE /api/books/[id] with  id not in db", (done) => {
-      //   chai
-      //     .request(server)
-      //     .delete("/api/books/" + "idnotindb")
-      //     .send({ _id: "idnotindb" })
-      //     .end((err, res) => {
-      //       assert.equal(res.body, "no book exists");
-      //       done();
-      //     });
-      // });
+      test("Test DELETE /api/books/[id] with  id not in db", (done) => {
+        chai
+          .request(server)
+          .delete("/api/books/" + "idnotindb")
+          .send({ _id: "idnotindb" })
+          .end((err, res) => {
+            assert.equal(res.body, "no book exists");
+            done();
+          });
+      });
     });
   });
 });
