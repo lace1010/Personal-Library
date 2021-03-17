@@ -28,29 +28,27 @@ $(document).ready(function () {
   let comments = [];
   $("#display").on("click", "li.bookItem", function () {
     $("#detailTitle").html(
-      "<b>" +
+      "<h2 id='bookTitle'>" +
         itemsRaw[this.id].title +
-        "</b> (id: " +
+        "</h2> <p id='idUnderTitle'>(id: " +
         itemsRaw[this.id]._id +
-        ")"
+        ")</p>"
     );
     $.getJSON("/api/books/" + itemsRaw[this.id]._id, function (data) {
       comments = [];
       $.each(data.comments, function (i, val) {
-        comments.push("<li>" + val + "</li>");
+        comments.push("<li class='commentLi'>" + val + "</li>");
       });
       comments.push(
-        '<br><form id="newCommentForm"><input style="width:300px" type="text" class="form-control" id="commentToAdd" name="comment" placeholder="New Comment"></form>'
+        '<br><form id="newCommentForm"><input type="text" id="commentToAdd" name="comment" placeholder="New Comment"></form>'
       );
       comments.push(
-        '<br><button class="btn btn-info addComment" id="' +
+        '<br><button class="addComment" id="' +
           data._id +
           '">Add Comment</button>'
       );
       comments.push(
-        '<button class="btn btn-danger deleteBook" id="' +
-          data._id +
-          '">Delete Book</button>'
+        '<button class="deleteBook" id="' + data._id + '">Delete Book</button>'
       );
       $("#detailComments").html(comments.join(""));
     });
@@ -63,7 +61,9 @@ $(document).ready(function () {
       success: function (data) {
         //update list
         $("#detailComments").html(
-          '<p style="color: red;">' + data + "<p><p>Refresh the page</p>"
+          '<p style="color: red;">' +
+            data +
+            "<p><p style='margin-top:2rem;'>Refresh the page</p>"
         );
       },
     });
